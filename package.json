@@ -32,9 +32,18 @@
     "webpack-dev-server": "^2.9.4"
   },
   "dependencies": {
+    "ajv": "^6.4.0",
+    "chart": "^0.1.2",
+    "chart.js": "^2.7.2",
+    "namor": "^1.0.1",
     "react": "^16.0.0",
+    "react-chartjs-2": "^2.7.0",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.7",
-    "redux": "^3.7.2"
+    "react-table": "^6.8.0",
+    "reactstrap": "^5.0.0",
+    "redux": "^3.7.2",
+    "socket.io": "^2.1.0",
+    "socket.io-client": "^2.1.0"
   }
 }

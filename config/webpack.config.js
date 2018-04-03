@@ -13,7 +13,7 @@ const PATHS = {
 module.exports = (env = {}) => {
 
   console.log('ENV:', env);
-  
+
   const common =  {
     entry: { // looks for entry filenames
       app: PATHS.app, // scan the content for import and require
@@ -58,11 +58,11 @@ module.exports = (env = {}) => {
       ]
     }
   }
-    
+
   const dev = {
     devtool: 'cheap-module-source-map',
     devServer: {
-      port: 8080,
+      port: 3001,
       stats: 'errors-only'
     }
   }
