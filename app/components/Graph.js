@@ -1,32 +1,29 @@
 import React, {Component} from 'react';
 import {Line} from 'react-chartjs-2';
+import {connect} from 'react-redux';
+import {updateChart} from '../actions';
 
 class Graph extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      labels: ['data','data','data','data','data','data','data','data','data','data','data','data','data','data','data','data','data','data','data','data'],
-      data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-    }
-  }
 
   componentDidMount() {
     setInterval(()=>{
+      let {labels, data} = this.props;
       const randomNum = Math.floor(Math.random() * 100);
-      let labels = this.state.labels.slice(0);
-      let data = this.state.data.slice(0);
+      labels = labels.slice(0);
+      data = data.slice(0);
 
       labels.push('data');
       labels.shift();
       data.push(randomNum);
       data.shift();
-      this.setState({labels, data});
+
+      this.props.dispatch(updateChart({labels, data}))
     }, 1000)
   }
 
   render() {
     const line = {
-      labels: this.state.labels,
+      labels: this.props.labels,
       datasets: [
         {
           label: 'My First dataset',
@@ -47,7 +44,7 @@ class Graph extends Component {
           pointHoverBorderWidth: 2,
           pointRadius: 1,
           pointHitRadius: 10,
-          data: this.state.data
+          data: this.props.data
         }
       ]
     };
@@ -58,8 +55,8 @@ class Graph extends Component {
         <Line data={line}
               options={{
             maintainAspectRatio: true,
-            // scales: { xAxes: [{ display: false }], yAxes: [{ display: false }] },
-            scales: { yAxes: [{ ticks: {max:100, min:0} }] },
+            scales: { xAxes: [{ display: false }], yAxes: [{ display: false, ticks: {max:100, min:0} }] },
+            // scales: { yAxes: [{ ticks: {max:100, min:0} }] },
             legend: { display: false },
             animation: false
           }}
@@ -70,4 +67,11 @@ class Graph extends Component {
   }
 }
 
-export default Graph;
+const mapStateToProps = (state) => {
+  return {
+    labels: state.chartReducer.labels,
+    data: state.chartReducer.data
+  }
+}
+
+export default connect(mapStateToProps)(Graph);

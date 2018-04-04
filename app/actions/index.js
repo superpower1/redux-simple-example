@@ -4,3 +4,10 @@ export const changeInput = input => {
     input
   }
 }
+
+export const updateChart = newData => {
+  return {
+    type: "UPDATE_CHART",
+    newData
+  }
+}

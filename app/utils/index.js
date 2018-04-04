@@ -24,7 +24,7 @@ const newPerson = () => {
   };
 };
 
-export function makeData(len = 20) {
+export function makeData(len = 1) {
   return range(len).map(d => {
     return {
       ...newPerson(),
