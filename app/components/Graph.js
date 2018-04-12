@@ -53,9 +53,11 @@ class Graph extends Component {
 
       <div className="chart-wrapper">
         <Line data={line}
+          // height={100}
               options={{
             maintainAspectRatio: true,
-            scales: { xAxes: [{ display: false }], yAxes: [{ display: false, ticks: {max:100, min:0} }] },
+            // responsive: true,
+            scales: { xAxes: [{ display: false }], yAxes: [{ display: true }] },
             // scales: { yAxes: [{ ticks: {max:100, min:0} }] },
             legend: { display: false },
             animation: false

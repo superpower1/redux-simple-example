@@ -75,7 +75,7 @@ class Table extends Component {
               )
             }]
           }]}
-          defaultPageSize={10}
+          pageSize={this.state.data.length}
           className="-striped -highlight"
         />
         <br />
