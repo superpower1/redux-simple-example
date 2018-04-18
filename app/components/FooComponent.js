@@ -18,7 +18,7 @@ class FooComponent extends React.Component {
         <input type="text" onChange={this.handleChange}/>
         <p>{this.props.text}</p>
         <Table/>
-        {/* <Graph/> */}
+        <Graph/>
         <AutoComplete/>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque magni dolor facilis, impedit ea excepturi sapiente, sint voluptas culpa numquam reiciendis eveniet in deserunt asperiores iure, labore repudiandae provident tempore.</p>
       </div>

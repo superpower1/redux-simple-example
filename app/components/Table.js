@@ -8,24 +8,34 @@ class Table extends Component {
   constructor() {
     super();
     this.state = {
-      data: makeData()
+      data: makeData(),
+      showName: true
     };
   }
+
+  toggleName = () => {
+    const showName = !this.state.showName;
+    this.setState({showName});
+  }
+
   render() {
     const { data } = this.state;
     return (
       <div>
+        <input type="checkbox" onClick={this.toggleName} value="Show Name"/>
         <ReactTable
           data={data}
           columns={[{
             Header: 'Name',
             columns: [{
               Header: 'First Name',
-              accessor: 'firstName'
+              accessor: 'firstName',
+              show: this.state.showName
             }, {
               Header: 'Last Name',
               id: 'lastName',
-              accessor: d => d.lastName
+              accessor: d => d.lastName,
+              show: this.state.showName
             }]
           }, {
             Header: 'Info',
