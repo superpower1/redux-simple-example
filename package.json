@@ -37,6 +37,7 @@
     "chart.js": "^2.7.2",
     "chartjs-plugin-zoom": "^0.6.3",
     "namor": "^1.0.1",
+    "rc-slider": "^8.6.1",
     "react": "^16.0.0",
     "react-autosuggest": "^9.3.4",
     "react-chartjs-2": "^2.7.0",
@@ -46,6 +47,7 @@
     "reactstrap": "^5.0.0",
     "redux": "^3.7.2",
     "socket.io": "^2.1.0",
-    "socket.io-client": "^2.1.0"
+    "socket.io-client": "^2.1.0",
+    "sweetalert2": "^7.18.0"
   }
 }
