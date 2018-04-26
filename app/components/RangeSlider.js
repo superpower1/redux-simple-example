@@ -7,10 +7,25 @@ const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
 
 class RangeSlider extends Component {
+
   render() {
+    const marks = {
+      0: '11:30',
+      10: '11:40',
+      20: '11:50'
+    }
+
     return (
       <div>
-        <Range min={0} max={20} defaultValue={[3, 10]} tipFormatter={value => `${value}%`} />
+        <Range
+          min={0}
+          max={20}
+          allowCross={false}
+          pushable={5}
+          defaultValue={[3, 10]}
+          marks={marks} step={5}
+          onAfterChange={value => console.log(value)}
+          tipFormatter={value => `${value}%`} />
       </div>
     );
   }

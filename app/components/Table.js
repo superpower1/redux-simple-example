@@ -7,15 +7,47 @@ import Graph from './Graph';
 class Table extends Component {
   constructor() {
     super();
+    const data = makeData();
     this.state = {
-      data: makeData(),
-      showName: true
+      data,
+      showName: true,
+      expanded: new Array(data.length).fill(false)
     };
   }
 
   toggleName = () => {
     const showName = !this.state.showName;
     this.setState({showName});
+  }
+
+  subMenu = (prop) => {
+    return (
+      <div>
+        <ul>
+          <li>Item1</li>
+          <li>Item2</li>
+          <li>Item3</li>
+        </ul>
+      </div>
+    )
+  }
+
+  rowOnClick = (state, rowInfo, column) => {
+    if(rowInfo != undefined) {
+      return {
+        onClick: (e) => {
+          this.expandRow(rowInfo);
+        }
+      }
+    }
+    else return {}
+  }
+
+  expandRow = (rowInfo) => {
+    const expanded = this.state.expanded.map((element, index) => {
+       return (index === rowInfo.index ? !element : false);
+     });
+    this.setState({expanded});
   }
 
   render() {
@@ -83,10 +115,30 @@ class Table extends Component {
                   }
                 </span>
               )
+            }, {
+              Header: 'Menu',
+              expander: true,
+              width: 65,
+              Expander: ({ isExpanded, ...rest }) =>
+                <div>
+                  {isExpanded
+                    ? <span>&#x2299;</span>
+                    : <span>&#x2295;</span>}
+                </div>,
+              style: {
+                cursor: "pointer",
+                fontSize: 25,
+                padding: "0",
+                textAlign: "center",
+                userSelect: "none"
+              },
             }]
           }]}
           pageSize={this.state.data.length}
           className="-striped -highlight"
+          SubComponent={this.subMenu}
+          expanded={this.state.expanded}
+          getTdProps={this.rowOnClick}
         />
         <br />
         <Tips />
