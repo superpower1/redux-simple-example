@@ -16,7 +16,7 @@ class RangeSlider extends Component {
     }
 
     return (
-      <div>
+      <div style={{padding: '50px'}}>
         <Range
           min={0}
           max={20}
