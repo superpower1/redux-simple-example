@@ -36,7 +36,6 @@ class FooComponent extends React.Component {
         {/* <RealTime/> */}
         <input type="text" onChange={this.handleChange}/>
         <p>{this.props.text}</p>
-        {/* <Graph/> */}
         <button onClick={this.showAlert}>Show Alert</button>
         <RangeSlider/>
         <DragAndDrop/>

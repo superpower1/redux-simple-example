@@ -53,7 +53,6 @@ class Graph extends Component {
 
       <div className="chart-wrapper">
         <Line data={line}
-          height={50}
           options={{
             maintainAspectRatio: true,
             // responsive: true,

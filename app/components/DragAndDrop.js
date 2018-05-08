@@ -5,6 +5,7 @@ import { Responsive, WidthProvider } from 'react-grid-layout';
 
 import Table from './Table';
 import AutoComplete from './AutoComplete';
+import Graph from './Graph';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -21,8 +22,13 @@ const mdLayout = [
 // {lg: layout1, md: layout2, ...}
 const layouts = {lg: lgLayout, md: mdLayout}
 const originalLayouts = getFromLS("layouts") || layouts;
+
+const originalItems = [{
+  i: "input", x: 0, y: 0, w: 2, h: 2
+}, {
+  i: "output", x: 0, y: 0, w: 2, h: 2
+}]
 const savedItems = getFromLS("savedItems") || [];
-const itemNum = savedItems.length;
 
 class DragAndDrop extends React.Component {
 
@@ -30,14 +36,15 @@ class DragAndDrop extends React.Component {
     super(props);
     this.state = {
       items: savedItems,
-      newCounter: itemNum,
-      layouts: originalLayouts
+      // newCounter: itemNum,
+      layouts: originalLayouts,
+      showWidget: {
+        showInput: true,
+        showOutput: true
+      }
     };
-    this.onAddItem = this.onAddItem.bind(this);
     this.onBreakpointChange = this.onBreakpointChange.bind(this);
     this.resetLayout = this.resetLayout.bind(this);
-    this.removeAddonItems = this.removeAddonItems.bind(this);
-    console.log(savedItems);
   }
 
   createElement(el) {
@@ -62,26 +69,6 @@ class DragAndDrop extends React.Component {
     );
   }
 
-  onAddItem() {
-    /*eslint no-console: 0*/
-    console.log("adding", "n" + this.state.newCounter);
-    const items = this.state.items.concat({
-      i: "n" + this.state.newCounter,
-      x: (this.state.items.length * 2) % (this.state.cols || 12),
-      y: Infinity, // puts it at the bottom
-      w: 2,
-      h: 2
-    });
-    saveToLS("savedItems", items);
-    console.log(items);
-    this.setState({
-      // Add a new item. It must have a unique key!
-      items,
-      // Increment the counter to ensure key is always unique.
-      newCounter: this.state.newCounter + 1
-    });
-  }
-
   // We're using the cols coming back from this to calculate where to add new items.
   onBreakpointChange(breakpoint, cols) {
     this.setState({
@@ -101,7 +88,6 @@ class DragAndDrop extends React.Component {
   }
 
   onLayoutChange(layout, layouts) {
-    console.log('onLayoutChange');
     saveToLS("layouts", layouts);
     saveToLS("savedItems", this.state.items);
     this.setState({ layouts });
@@ -111,18 +97,28 @@ class DragAndDrop extends React.Component {
     this.setState({ layouts });
   }
 
-  removeAddonItems() {
-    this.setState({ items: [] });
-    saveToLS("savedItems", []);
+  toggleWidget(key) {
+    console.log(key);
+    let items = this.state.items;
+    const item = items.find(item=>item.i===key);
+    if (item) {
+      items = items.filter((el) => {
+        return el.i !== key;
+      });
+    } else {
+      items.push(originalItems.find(item=>item.i===key));
+    }
+    this.setState({items});
+    saveToLS("savedItems", items);
   }
 
   render() {
-
+    const {showInput, showOutput} = this.state.showWidget;
     return (
       <div>
-        <button onClick={this.onAddItem}>Add Item</button>
         <button onClick={this.resetLayout}>Reset Layout</button>
-        <button onClick={this.removeAddonItems}>Remove addon items</button>
+        <button onClick={()=>{this.toggleWidget('input')}}>toggle input</button>
+        <button onClick={()=>{this.toggleWidget('output')}}>toggle output</button>
         <ResponsiveGridLayout className="layout" layouts={this.state.layouts}
           breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
           cols={{lg: 12, md: 10, sm: 6, xs: 4, xxs: 2}}
@@ -131,7 +127,7 @@ class DragAndDrop extends React.Component {
             this.onLayoutChange(layout, layouts)
           }>
           <div key="1"><Table/></div>
-          <div key="2" style={{backgroundColor: 'rgba(0,0,0,.5)'}}><AutoComplete/></div>
+          <div key="2" style={{backgroundColor: 'rgba(0,0,0,.5)'}}><Graph/></div>
           <div key="3" style={{backgroundColor: 'rgba(0,0,0,.5)'}}>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque magni dolor facilis, impedit ea excepturi sapiente, sint voluptas culpa numquam reiciendis eveniet in deserunt asperiores iure, labore repudiandae provident tempore.</p>
           </div>
