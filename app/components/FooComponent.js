@@ -1,11 +1,10 @@
 import React from "react";
 import {connect} from 'react-redux';
 import {changeInput} from '../actions';
-import RealTime from './RealTime';
-import Table from './Table';
+// import RealTime from './RealTime';
 import Graph from './Graph';
-import AutoComplete from './AutoComplete';
 import RangeSlider from './RangeSlider';
+import DragAndDrop from './DragAndDrop';
 import swal from 'sweetalert2';
 
 class FooComponent extends React.Component {
@@ -34,15 +33,13 @@ class FooComponent extends React.Component {
   render() {
     return (
       <div>
-        <RealTime/>
+        {/* <RealTime/> */}
         <input type="text" onChange={this.handleChange}/>
         <p>{this.props.text}</p>
-        <Table/>
         {/* <Graph/> */}
-        <AutoComplete/>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque magni dolor facilis, impedit ea excepturi sapiente, sint voluptas culpa numquam reiciendis eveniet in deserunt asperiores iure, labore repudiandae provident tempore.</p>
         <button onClick={this.showAlert}>Show Alert</button>
         <RangeSlider/>
+        <DragAndDrop/>
       </div>
     );
   }

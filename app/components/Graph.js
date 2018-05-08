@@ -60,7 +60,11 @@ class Graph extends Component {
             scales: { xAxes: [{ display: false }], yAxes: [{ display: true }] },
             // scales: { yAxes: [{ ticks: {max:100, min:0} }] },
             legend: { display: false },
-            animation: false
+            animation: false,
+            title: {
+              display: true,
+              text: 'Custom Chart Title'
+            }
           }}
         />
       </div>
